@@ -16,44 +16,44 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.flaviosantos.minierp.exception.ResourceNotFoundException;
-import dev.flaviosantos.minierp.model.Product;
-import dev.flaviosantos.minierp.service.ProductServiceInterface;
+import dev.flaviosantos.minierp.model.Order;
+import dev.flaviosantos.minierp.service.OrderServiceInterface;
 
 @RestController
-@RequestMapping("/product")
-public class ProductController {
+@RequestMapping("/order")
+public class OrderController {
 
-	private ProductServiceInterface productService;
+	private OrderServiceInterface orderService;
 
 	@Autowired
-	public ProductController(ProductServiceInterface productService) {
-		this.productService = productService;
+	public OrderController(OrderServiceInterface orderService) {
+		this.orderService = orderService;
 	}
 
 	@GetMapping
-	public List<Product> getProducts() {
-		return this.productService.getProducts();
+	public List<Order> getOrders() {
+		return this.orderService.getOrders();
 	}
 
 	@GetMapping("/{id}")
-	public Product getProduct(@PathVariable UUID id) throws ResourceNotFoundException {
-		return this.productService.getProduct(id);
+	public Order getOrder(@PathVariable UUID id) throws ResourceNotFoundException {
+		return this.orderService.getOrder(id);
 	}
 
 	@PostMapping
-	public Product createProduct(@RequestBody Product product) {
-		var savedProduct = this.productService.createProduct(product);
-		return savedProduct;
+	public Order createOrder(@RequestBody Order order) {
+		var savedOrder = this.orderService.createOrder(order);
+		return savedOrder;
 	}
 
 	@PutMapping("/{id}")
-	public Product updateProduct(@PathVariable UUID id, @RequestBody Product product) throws ResourceNotFoundException {
-		return this.productService.updateProduct(id, product);
+	public Order updateOrder(@PathVariable UUID id, @RequestBody Order order) throws ResourceNotFoundException {
+		return this.orderService.updateOrder(id, order);
 	}
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteProduct(@PathVariable UUID id) throws ResourceNotFoundException {
-		this.productService.deleteProduct(id);
+	public void deleteOrder(@PathVariable UUID id) throws ResourceNotFoundException {
+		this.orderService.deleteOrder(id);
 	}
 }

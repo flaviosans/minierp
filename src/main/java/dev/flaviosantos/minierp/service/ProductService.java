@@ -42,8 +42,10 @@ public class ProductService implements ProductServiceInterface {
 		return this.productRepository.save(entityProduct);
 	}
 
-	public void deleteProduct(UUID id) {
-		this.productRepository.deleteById(id);
+	public void deleteProduct(UUID id) throws ResourceNotFoundException {
+		var product = this.getProduct(id);
+
+		this.productRepository.delete(product);
 	}
 
 }
