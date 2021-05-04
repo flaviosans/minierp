@@ -33,3 +33,5 @@ build/
 ### VS Code ###
 .vscode/
 /bin/
+src/main/java/dev/flaviosantos/minierp/service/OrderService.java
+.dbeaver/data-sources.json
