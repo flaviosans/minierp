@@ -38,7 +38,7 @@ public class OrderService implements OrderServiceInterface {
 	public Order updateOrder(UUID id, Order order) throws ResourceNotFoundException {
 		var entityOrder = this.getOrder(id);
 
-		// TODO: UPDATE ORDERS
+		// TODO: update order details
 
 		return this.orderRepository.save(entityOrder);
 	}

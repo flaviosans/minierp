@@ -7,8 +7,6 @@ public class ItemDto {
 	
 	private UUID id;
 	
-	private OrderDto order;
-	
 	private ProductDto product;
 	
 	private BigDecimal qty;
@@ -24,12 +22,6 @@ public class ItemDto {
 	public void setId(UUID id) {
 		this.id = id;
 	}
-
-	/*
-	 * public OrderDto getOrder() { return order; }
-	 * 
-	 * public void setOrder(OrderDto order) { this.order = order; }
-	 */
 
 	public ProductDto getProduct() {
 		return product;

@@ -50,6 +50,7 @@ public class Order {
 
 	public void setDiscount(BigDecimal discount) {
 		this.discount = discount;
+		this.recalculate();
 	}
 
 	public String getCustomerName() {
@@ -59,12 +60,33 @@ public class Order {
 	public void setCustomerName(String name) {
 		this.customerName = name;
 	}
-
-	public List<Item> getItems() {
-		return items;
+	
+	public void addItem(Item item) {
+		this.items.add(item);
+		this.recalculate();
 	}
 
-	public void setItems(List<Item> items) {
-		this.items = items;
+	public void removeItem(Item item) {
+		this.items.remove(item);
+		this.recalculate();
+	}
+	
+	public List<Item> getItems() {
+		return new ArrayList<Item>(this.items);
+	}
+	
+	public void recalculate() {
+		BigDecimal total = BigDecimal.ZERO;
+		
+		for(Item each: this.items) {
+			var qty = each.getQty();
+			var price = each.getPrice();
+			
+			var pricePlusQty = price.multiply(qty);
+			
+			total = total.add(pricePlusQty);
+		}
+		
+		this.total = this.total.subtract(this.discount);
 	}
 }
