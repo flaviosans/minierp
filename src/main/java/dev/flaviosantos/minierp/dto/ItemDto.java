@@ -11,8 +11,6 @@ public class ItemDto {
 	
 	private BigDecimal qty;
 	
-	private BigDecimal price;
-	
 	private BigDecimal discount;
 
 	public UUID getId() {
@@ -37,14 +35,6 @@ public class ItemDto {
 
 	public void setQty(BigDecimal qty) {
 		this.qty = qty;
-	}
-
-	public BigDecimal getPrice() {
-		return price;
-	}
-
-	public void setPrice(BigDecimal price) {
-		this.price = price;
 	}
 
 	public BigDecimal getDiscount() {

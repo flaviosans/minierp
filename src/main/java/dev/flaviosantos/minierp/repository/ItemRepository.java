@@ -9,4 +9,6 @@ import dev.flaviosantos.minierp.model.Item;
 
 public interface ItemRepository extends JpaRepository<Item, UUID> {
 	List<Item> findByOrderId(UUID orderId);
+
+	Item findByIdAndOrderId(UUID orderId, UUID id);
 }

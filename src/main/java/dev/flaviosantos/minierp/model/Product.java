@@ -1,5 +1,6 @@
 package dev.flaviosantos.minierp.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,6 +21,10 @@ public class Product {
 	private String name;
 
 	private String sku;
+	
+	private BigDecimal price;
+	
+	private boolean isHandWork;
 	
 	@OneToMany(mappedBy = "product")
 	private List<Item> items;
@@ -46,6 +51,22 @@ public class Product {
 
 	public void setSku(String sku) {
 		this.sku = sku;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+	public boolean isHandWork() {
+		return isHandWork;
+	}
+
+	public void setHandWork(boolean isHandWork) {
+		this.isHandWork = isHandWork;
 	}
 
 	public List<Item> getItems() {

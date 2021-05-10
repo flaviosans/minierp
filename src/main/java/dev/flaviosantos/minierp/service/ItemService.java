@@ -23,22 +23,39 @@ public class ItemService implements ItemServiceInterface {
 	}
 
 	@Override
+	public Item getItem(UUID orderId, UUID id) throws ResourceNotFoundException {
+		var order = this.orderService.getOrder(orderId);
+		var itemFromOrder = order.getItems().stream().filter(i -> {
+			return i.getId() == id;
+		}).findAny().orElseThrow(ResourceNotFoundException::new);
+		
+		return itemFromOrder;
+	}
+	
+	@Override
 	public List<Item> getItems(UUID orderId) {
-		// var order = this.orderService.getOrder(orderId);
+		// TODO: VALIDAR SE PEDIDO EXISTE
 		var items = this.itemRepository.findByOrderId(orderId);
 		return items;
 	}
 
 	@Override
-	public Item addItem(UUID orderId, Item item) {
+	public Item createItem(UUID orderId, Item item) throws ResourceNotFoundException {
 		var order = this.orderService.getOrder(orderId);
-		order.add
+		return this.itemRepository.save(item);
 
+	}
+	
+	@Override
+	public Item updateItem(UUID orderId, UUID id, Item item) throws ResourceNotFoundException {
+		var itemFromEntity = this.getItem(orderId, id);
+		itemFromEntity.setQty(item.getQty());
+		return this.itemRepository.save(itemFromEntity);
 	}
 
 	@Override
-	public void removeItem(UUID orderId, Item item) {
-		// TODO Auto-generated method stub
+	public void deleteItem(UUID orderId, UUID id) {
+		this.itemRepository.deleteById(id);
 
 	}
 

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import dev.flaviosantos.minierp.dto.OrderDto;
 import dev.flaviosantos.minierp.exception.ResourceNotFoundException;
+import dev.flaviosantos.minierp.model.Item;
 import dev.flaviosantos.minierp.model.Order;
 import dev.flaviosantos.minierp.service.OrderServiceInterface;
 
@@ -47,25 +48,20 @@ public class OrderController {
 		
 		return orderDtoList;
 	}
-
+	
 	@GetMapping("/{id}")
-	public OrderDto getOrder(@PathVariable UUID id) throws ResourceNotFoundException {
-		var order = this.orderService.getOrder(id);
-		return this.modelMapper.map(order, OrderDto.class);
+	public Order getOrder(@PathVariable UUID id) throws ResourceNotFoundException {
+		return this.orderService.getOrder(id);
 	}
 
 	@PostMapping
-	public OrderDto createOrder(@RequestBody OrderDto orderDto) {
-		var order = this.modelMapper.map(orderDto, Order.class);
-		var savedOrder = this.orderService.createOrder(order);
-		return this.modelMapper.map(savedOrder, OrderDto.class);
+	public Order createOrder(@RequestBody Order order) {
+		return this.orderService.createOrder(order);
 	}
 
 	@PutMapping("/{id}")
-	public OrderDto updateOrder(@PathVariable UUID id, @RequestBody OrderDto orderDto) throws ResourceNotFoundException {
-		var order = this.modelMapper.map(orderDto, Order.class);
-		var updatedOrder = this.orderService.updateOrder(id, order);
-		return this.modelMapper.map(updatedOrder, OrderDto.class);
+	public Order updateOrder(@PathVariable UUID id, @RequestBody Order order) throws ResourceNotFoundException {
+		return this.orderService.updateOrder(id, order);
 	}
 
 	@DeleteMapping("/{id}")

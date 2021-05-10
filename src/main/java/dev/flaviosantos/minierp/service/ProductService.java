@@ -38,6 +38,7 @@ public class ProductService implements ProductServiceInterface {
 
 		entityProduct.setName(product.getName()); // TODO: CHECK FOR NULL
 		entityProduct.setSku(product.getSku());
+		entityProduct.setPrice(product.getPrice());
 
 		return this.productRepository.save(entityProduct);
 	}

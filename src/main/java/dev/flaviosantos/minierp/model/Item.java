@@ -21,6 +21,7 @@ public class Item {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "purchase_order_id", nullable = false)
+	@JsonIgnore
 	private Order order;
 
 	@ManyToOne
@@ -28,10 +29,6 @@ public class Item {
 	private Product product;
 	
 	private BigDecimal qty;
-
-	private BigDecimal price;
-
-	private BigDecimal discount;
 
 	public UUID getId() {
 		return id;
@@ -49,6 +46,7 @@ public class Item {
 		this.order = order;
 	}
 
+	@JsonIgnore
 	public Product getProduct() {
 		return product;
 	}
@@ -64,21 +62,13 @@ public class Item {
 	public void setQty(BigDecimal qty) {
 		this.qty = qty;
 	}
-
+	
+	public boolean isHandWork() {
+		return this.product.isHandWork();
+	}
+	
 	public BigDecimal getPrice() {
-		return price;
-	}
-
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
-
-	public BigDecimal getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(BigDecimal discount) {
-		this.discount = discount;
+		return this.product.getPrice();
 	}
 
 }

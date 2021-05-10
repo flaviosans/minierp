@@ -1,5 +1,6 @@
 package dev.flaviosantos.minierp.dto;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 public class ProductDto {
@@ -9,6 +10,8 @@ public class ProductDto {
 	private String name;
 	
 	private String sku;
+	
+	private BigDecimal price;
 
 	public UUID getId() {
 		return id;
@@ -32,5 +35,13 @@ public class ProductDto {
 
 	public void setSku(String sku) {
 		this.sku = sku;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 }

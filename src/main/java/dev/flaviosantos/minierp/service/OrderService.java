@@ -19,32 +19,44 @@ public class OrderService implements OrderServiceInterface {
 		this.orderRepository = orderRepository;
 	}
 
+	@Override
 	public List<Order> getOrders() {
-		return this.orderRepository.findAll();
+		var orders =  this.orderRepository.findAll();
+		orders.stream().forEach(o -> {
+			o.calculate();
+		});
+		
+		return orders;
 	}
 
 	public Order getOrder(UUID id) throws ResourceNotFoundException {
 		var optionalOrder = this.orderRepository.findById(id);
-		return optionalOrder.orElseThrow(ResourceNotFoundException::new);
+		var order = optionalOrder.orElseThrow(ResourceNotFoundException::new);
+		order.calculate();
+		
+		return order;
 	}
 
 	public Order createOrder(Order order) {
-		for (Item cada : order.getItems()) {
+		var savedOrder = this.orderRepository.save(order);
+		
+		for (Item cada : savedOrder.getItems()) {
 			cada.setOrder(order);
 		}
-		return this.orderRepository.save(order);
+//		order.calculate();
+		return order;
 	}
 
 	public Order updateOrder(UUID id, Order order) throws ResourceNotFoundException {
 		var entityOrder = this.getOrder(id);
-
-		// TODO: update order details
-
+		entityOrder.setCustomerName(order.getCustomerName());
+		entityOrder.setDiscount(order.getDiscount());
+		
 		return this.orderRepository.save(entityOrder);
 	}
 
 	public void deleteOrder(UUID id) throws ResourceNotFoundException {
 		var order = this.getOrder(id);
-		this.orderRepository.delete(order);
+		order.setDeleted(true);
 	}
 }
